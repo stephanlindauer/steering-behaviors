@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QtGui>
 
 namespace Ui {
 class MainWindow;
@@ -17,6 +18,9 @@ public:
     
 private:
     Ui::MainWindow *ui;
+    QGraphicsScene *scene;
+    QGraphicsEllipseItem *rect;
+
 };
 
 #endif // MAINWINDOW_H
