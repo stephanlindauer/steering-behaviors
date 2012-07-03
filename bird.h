@@ -9,12 +9,16 @@ class Bird
 
 public:
 
-    static int STAGE_WIDTH = 100;
-    static int STAGE_HEIGHT = 100;
-    static int _mass = 1;
-    static int _maxSpeed = 10;
+    static int STAGE_WIDTH;
+    static int STAGE_HEIGHT;
+    static int MASS;
+    static int MAXSPEED;
 
-    Bird(const Vector2d position, const Vector2d velocity) :
+    Bird():
+        m_position(Vector2D(0.f, 0.f)),
+        m_velocity(Vector2D(0.f, 0.f)) {}
+
+    Bird(const Vector2D position, const Vector2D velocity) :
         m_position (position),
         m_velocity (velocity) {}
 
@@ -22,7 +26,7 @@ public:
         QBrush redBrush(Qt::red);
         QPen blackPen(Qt::black);
         blackPen.setWidth(1);
-        QGraphicsEllipseItem * ellipse = scene->addEllipse(m_position.x, m_position.y, 10, 10, blackPen, redBrush);
+        QGraphicsEllipseItem * ellipse = scene->addEllipse((int) m_position.x(), (int) m_position.y(), 10, 10, blackPen, redBrush);
         ellipse->setX(4.0);
     }
 
@@ -47,22 +51,22 @@ public:
     }
 
     void update() {
-        m_position += m_velocity;
+        m_position = m_position + m_velocity;
         bounce();
     }
 
-    Vector2d velocity (void) {
+    Vector2D velocity (void) {
         return m_velocity;
     }
 
-    void velocity(Vector2d velocity) {
+    void velocity(Vector2D velocity) {
         m_velocity = velocity;
     }
 
 private:
 
-    Vector2d m_position;
-    Vector2d m_velocity;
+    Vector2D m_position;
+    Vector2D m_velocity;
 
 };
 

@@ -11,7 +11,8 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    bird.cpp
 
 HEADERS  += mainwindow.h \
     bird.h \

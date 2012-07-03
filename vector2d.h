@@ -146,6 +146,11 @@ public:
         return Vector2D(_x + v2._x, _y + v2._y);
     }
 
+    Vector2D & operator+(Vector2D & v2) {
+        *this = this->add(v2);
+        return *this;
+    }
+
     Vector2D subtract(Vector2D v2)
     {
         return Vector2D(_x - v2._x, _y - v2._y);

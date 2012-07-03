@@ -15,12 +15,15 @@ MainWindow::MainWindow(QWidget *parent) :
     QPen blackPen(Qt::black);
     blackPen.setWidth(1);
 
-    rect = scene->addEllipse(10, 10, 100, 100, blackPen, redBrush);
+    //rect = scene->addEllipse(10, 10, 100, 100, blackPen, redBrush);
 
     for (unsigned int i = 0; i < 25; i++) {
-        const Vector2d position(rand()%scene->width(), rand()%scene->height());
-        const Vector2d velocity(rand()%5, rand()%5);
-        const Bird b(position, velocity);
+        const int x = rand() % 100;
+        const int y = rand() % 100;
+        const Vector2D position((float) x, (float) y);
+        const Vector2D velocity(rand() % 5, rand() % 5);
+        Bird b(position, velocity);
+        b.draw(scene);
         birds.append(b);
     }
 
@@ -32,17 +35,12 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::update() {
     scene->clear();
 
-    QVector<Bird>::iterator current = birds.first();
-    QVector<Bird>::const_iterator last = birds.last();
-
-    {
-        const Vector2d velocity(rand() % 5, rand() % 5);
-        current->velocity(velocity);
-        current->update();
-        current->draw(scene);
-        current++;
-
-    } while (current != last);
+    foreach (Bird bird, birds) {
+        const Vector2D velocity(rand() % 5, rand() % 5);
+        bird.velocity(velocity);
+        bird.update();
+        bird.draw(scene);
+    }
 
 }
 
