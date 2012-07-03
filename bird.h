@@ -9,8 +9,8 @@ class Bird
 
 public:
 
-    static int STAGE_WIDTH;
-    static int STAGE_HEIGHT;
+    static unsigned int STAGE_WIDTH;
+    static unsigned int STAGE_HEIGHT;
     static unsigned int MASS;
     static unsigned int MAXSPEED;
 
@@ -23,46 +23,49 @@ public:
     }
 
     static Vector2D randomVelocity(void) {
-        const unsigned int x = (rand() % Bird::MAXSPEED) - Bird::MAXSPEED / 2;
-        const unsigned int y = (rand() % Bird::MAXSPEED) - Bird::MAXSPEED / 2;
+        const int x = (rand() % Bird::MAXSPEED) - Bird::MAXSPEED / 2;
+        const int y = (rand() % Bird::MAXSPEED) - Bird::MAXSPEED / 2;
 
         const Vector2D velocity((float) x, (float) y);
+        printf("%f, %f\n", velocity.x(), velocity.y());
+
         return velocity;
     }
 
     Bird():
         m_position(randomPosition()),
-        m_velocity(randomVelocity()) {}
+        m_velocity(randomVelocity()),
+        m_color(QColor(rand()%255, rand()%255, rand()%255)) {}
 
     Bird(const Vector2D position, const Vector2D velocity) :
         m_position (position),
-        m_velocity (velocity) {}
+        m_velocity (velocity),
+        m_color(QColor(rand()%255, rand()%255, rand()%255)) {}
 
     void draw( QGraphicsScene * scene ){
-        QBrush redBrush(QColor(rand()%255, rand()%255, rand()%255));
+        QBrush brush(m_color);
         QPen blackPen(Qt::black);
         blackPen.setWidth(1);
-        QGraphicsEllipseItem * ellipse = scene->addEllipse((int) m_position.x(), (int) m_position.y(), 10, 10, blackPen, redBrush);
-        ellipse->setX(4.0);
+        QGraphicsEllipseItem * ellipse = scene->addEllipse((int) m_position.x(), (int) m_position.y(), 10, 10, blackPen, brush);
     }
 
     void bounce(){
         if(m_position.x() > STAGE_WIDTH) {
             m_position.x(STAGE_WIDTH);
-            m_velocity.x(m_velocity.x()*-1);
+            m_velocity.x(m_velocity.x()*-1.f);
 
         } else if(m_position.x() < 0) {
             m_position.x(0);
-            m_velocity.x(m_velocity.x()*-1);
+            m_velocity.x(m_velocity.x()*-1.f);
         }
 
         if(m_position.y() > STAGE_HEIGHT) {
             m_position.y(STAGE_HEIGHT);
-            m_velocity.y(m_velocity.y()*-1);
+            m_velocity.y(m_velocity.y()*-1.f);
 
         } else if(m_position.y() < 0) {
             m_position.y(0);
-            m_velocity.y(m_velocity.y()*-1);
+            m_velocity.y(m_velocity.y()*-1.f);
         }
     }
 
@@ -83,6 +86,7 @@ private:
 
     Vector2D m_position;
     Vector2D m_velocity;
+    QColor m_color;
 
 };
 

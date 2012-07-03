@@ -30,11 +30,16 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::update() {
     scene->clear();
+    QPen blackPen(Qt::black);
+    blackPen.setWidth(1);
+    scene->addRect(0, 0, scene->width(), scene->height(), blackPen);
 
-    foreach (Bird bird, birds) {
-        //bird.velocity(Bird::randomVelocity());
-        bird.update();
-        bird.draw(scene);
+    Bird::STAGE_WIDTH = (unsigned int) scene->width();
+    Bird::STAGE_HEIGHT = (unsigned int) scene->height();
+
+    for (int i = 0; i < birds.size(); i++) {
+        birds[i].update();
+        birds[i].draw(scene);
     }
 
 }

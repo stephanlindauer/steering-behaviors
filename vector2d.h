@@ -176,7 +176,7 @@ public:
         _x = value;
     }
 
-    float x()
+    float x() const
     {
         return _x;
     }
@@ -186,7 +186,7 @@ public:
         _y = value;
     }
 
-    float y()
+    float y() const
     {
         return _y;
     }
