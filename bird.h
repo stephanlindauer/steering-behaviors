@@ -2,64 +2,68 @@
 #define BIRD_H
 
 #include <QtGui>
+#include "vector2d.h"
 
 class Bird
 {
 
 public:
 
-    Bird(int x , int y , int velocityX, int velocityY) :
-        _positionX (x),
-        _positionY (y),
-        _velocityX (velocityX),
-        _velocityY (velocityY) {}
+    static int STAGE_WIDTH = 100;
+    static int STAGE_HEIGHT = 100;
+    static int _mass = 1;
+    static int _maxSpeed = 10;
+
+    Bird(const Vector2d position, const Vector2d velocity) :
+        m_position (position),
+        m_velocity (velocity) {}
 
     void draw( QGraphicsScene * scene ){
         QBrush redBrush(Qt::red);
         QPen blackPen(Qt::black);
         blackPen.setWidth(1);
-       QGraphicsEllipseItem ellipse = scene->addEllipse( _positionX ,_positionY,10,10, blackPen, redBrush);
-       ellipse.setX();
+        QGraphicsEllipseItem * ellipse = scene->addEllipse(m_position.x, m_position.y, 10, 10, blackPen, redBrush);
+        ellipse->setX(4.0);
     }
 
     void bounce(){
-        if(_positionX > _stageWidth)
-        {
-            _positionX = _stageWidth;
-            _velocityX *= -1;
-        }
-        else if(_positionX < 0)
-        {
-            _positionX = 0;
-            _velocityX *= -1;
+        if(m_position.x() > STAGE_WIDTH) {
+            m_position.x(STAGE_WIDTH);
+            m_velocity.x(m_velocity.x()*-1);
+
+        } else if(m_position.x() < 0) {
+            m_position.x(0);
+            m_velocity.x(m_velocity.x()*-1);
         }
 
-        if(_positionY > _stageHeight)
-        {
-            _positionY = _stageHeight;
-            _velocityY *= -1;
-        }
-        else if(_positionY < 0)
-        {
-            _positionY = 0;
-            _velocityY *= -1;
+        if(m_position.y() > STAGE_HEIGHT) {
+            m_position.y(STAGE_HEIGHT);
+            m_velocity.y(m_velocity.y()*-1);
+
+        } else if(m_position.y() < 0) {
+            m_position.y(0);
+            m_velocity.y(m_velocity.y()*-1);
         }
     }
 
+    void update() {
+        m_position += m_velocity;
+        bounce();
+    }
+
+    Vector2d velocity (void) {
+        return m_velocity;
+    }
+
+    void velocity(Vector2d velocity) {
+        m_velocity = velocity;
+    }
 
 private:
 
-    int _stageWidth;
-    int _stageHeight;
-    int _positionX;
-    int _positionY;
-    float _velocityX;
-    float _velocityY;
-    static const int _mass = 1;
-    static const int _maxSpeed = 10;
+    Vector2d m_position;
+    Vector2d m_velocity;
 
 };
-
-
 
 #endif // BIRD_H
