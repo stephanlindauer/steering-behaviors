@@ -17,6 +17,9 @@ HEADERS  += mainwindow.h \
     vector2d.h \
     mapdrawer.h \
     birddrawer.h \
-    drawer.h
+    drawer.h \
+    map.h \
+    object.h \
+    obstacle.h
 
 FORMS    += mainwindow.ui
