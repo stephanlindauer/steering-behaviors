@@ -20,6 +20,7 @@ HEADERS  += mainwindow.h \
     drawer.h \
     map.h \
     object.h \
-    obstacle.h
+    obstacle.h \
+    nullobject.h
 
 FORMS    += mainwindow.ui

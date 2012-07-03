@@ -9,14 +9,13 @@
 
 class Map {
 public:
-    Map(, unsigned int count = 10) : m_dimensions(dimensions) {
-
-
+    Map(unsigned int width = 10, unsigned int height = 10) {
+        m_objects.reserve(width * height);
     }
 
 private:
 
-
+    QVector<Object> m_objects;
 
 };
 
