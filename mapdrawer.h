@@ -20,7 +20,7 @@ public:
             m_birds[i].draw(scene);
         }
         for (int j = 0; j < m_obstacles.size(); j++) {
-            m_birds[i].draw(scene);
+            m_obstacles[i].draw(scene);
         }
     }
 
