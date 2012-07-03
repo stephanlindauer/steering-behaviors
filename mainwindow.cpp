@@ -19,7 +19,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     for (unsigned int i = 0; i < 5; i++) {
         Bird b;
-        b.draw(scene);
         birds.append(b);
     }
 

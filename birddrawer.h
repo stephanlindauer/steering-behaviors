@@ -1,11 +1,21 @@
 #ifndef BIRDDRAWER_H
 #define BIRDDRAWER_H
 
-class BirdDrawer
-{
+#include <QtGui>
+
+class BirdDrawer : public Drawer {
 public:
-    Bird m_bird;
-    QColor m_color;
+    BirdDrawer(const Bird & bird):
+        m_bird(bird) {}
+
+    void draw(const QGraphicsScene * scene) {
+        scene->addEllipse()
+    }
+
+private:
+    const Bird & m_bird;
+    QGraphicsEllipseItem * ellipse;
+
 };
 
 #endif // BIRDDRAWER_H
