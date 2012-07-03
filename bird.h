@@ -2,6 +2,7 @@
 #define BIRD_H
 
 #include "vector2d.h"
+#include "object.h"
 
 class Bird : public Object {
 public:
