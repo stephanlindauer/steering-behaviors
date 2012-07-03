@@ -11,19 +11,35 @@ public:
 
     static int STAGE_WIDTH;
     static int STAGE_HEIGHT;
-    static int MASS;
-    static int MAXSPEED;
+    static unsigned int MASS;
+    static unsigned int MAXSPEED;
+
+    static Vector2D randomPosition(void) {
+        const unsigned int x = rand() % Bird::STAGE_WIDTH;
+        const unsigned int y = rand() % Bird::STAGE_HEIGHT;
+
+        const Vector2D position((float) x, (float) y);
+        return position;
+    }
+
+    static Vector2D randomVelocity(void) {
+        const unsigned int x = (rand() % Bird::MAXSPEED) - Bird::MAXSPEED / 2;
+        const unsigned int y = (rand() % Bird::MAXSPEED) - Bird::MAXSPEED / 2;
+
+        const Vector2D velocity((float) x, (float) y);
+        return velocity;
+    }
 
     Bird():
-        m_position(Vector2D(0.f, 0.f)),
-        m_velocity(Vector2D(0.f, 0.f)) {}
+        m_position(randomPosition()),
+        m_velocity(randomVelocity()) {}
 
     Bird(const Vector2D position, const Vector2D velocity) :
         m_position (position),
         m_velocity (velocity) {}
 
     void draw( QGraphicsScene * scene ){
-        QBrush redBrush(Qt::red);
+        QBrush redBrush(QColor(rand()%255, rand()%255, rand()%255));
         QPen blackPen(Qt::black);
         blackPen.setWidth(1);
         QGraphicsEllipseItem * ellipse = scene->addEllipse((int) m_position.x(), (int) m_position.y(), 10, 10, blackPen, redBrush);

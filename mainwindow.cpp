@@ -17,12 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //rect = scene->addEllipse(10, 10, 100, 100, blackPen, redBrush);
 
-    for (unsigned int i = 0; i < 25; i++) {
-        const int x = rand() % 100;
-        const int y = rand() % 100;
-        const Vector2D position((float) x, (float) y);
-        const Vector2D velocity(rand() % 5, rand() % 5);
-        Bird b(position, velocity);
+    for (unsigned int i = 0; i < 5; i++) {
+        Bird b;
         b.draw(scene);
         birds.append(b);
     }
@@ -36,8 +32,7 @@ void MainWindow::update() {
     scene->clear();
 
     foreach (Bird bird, birds) {
-        const Vector2D velocity(rand() % 5, rand() % 5);
-        bird.velocity(velocity);
+        //bird.velocity(Bird::randomVelocity());
         bird.update();
         bird.draw(scene);
     }
