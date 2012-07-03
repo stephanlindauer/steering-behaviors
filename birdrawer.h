@@ -1,6 +1,9 @@
 #ifndef BIRDDRAWER_H
 #define BIRDDRAWER_H
 
+#include <QtGui>
+#include <"bird.h">
+
 class BirdDrawer
 {
 public:
