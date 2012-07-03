@@ -115,7 +115,7 @@ public:
         if(!v2.isNormalized()){
             v2 = v2.clone().normalize();
         }
-        return Math.acos(v1.dotProd(v2));
+        return acos(v1.dotProd(v2));
     }
 
     int sign(Vector2D v2)
@@ -130,7 +130,7 @@ public:
 
     float dist(Vector2D v2)
     {
-        return Math.sqrt(distSQ(v2));
+        return sqrt(distSQ(v2));
     }
 
     float distSQ(Vector2D v2)
