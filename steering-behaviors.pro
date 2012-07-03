@@ -11,11 +11,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    bird.cpp
+        mainwindow.cpp
 
 HEADERS  += mainwindow.h \
     bird.h \
-    vector2d.h
+    vector2d.h \
+    birdrawer.h
 
 FORMS    += mainwindow.ui
