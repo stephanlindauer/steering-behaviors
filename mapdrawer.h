@@ -2,13 +2,24 @@
 #define MAPDRAWER_H
 
 #include <QtGui>
-#include <birdrawer.h>
+#include <birddrawer.h>
 
-class MapDrawer
+class MapDrawer : public Drawer
 {
 public:
-    QVector<BirdDrawer> birds ;
-    QVector<QColor> m_color;
+
+    MapDrawer(QVector birds){
+        this->birds = birds;
+    }
+
+    void draw (const QGraphicsScene *scene){
+        foreach (BirdDrawer birdDrawer, birds){
+            birdDrawer.draw(scene);
+        }
+    }
+
+private:
+        QVector<BirdDrawer> birds ;
 };
 
 
