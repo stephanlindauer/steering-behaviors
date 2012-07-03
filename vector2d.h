@@ -22,14 +22,14 @@ public:
 
     Vector2D clone()
     {
-        return Vector2D(x, y);
+        return Vector2D(_x, _y);
     }
 
-    void zero()
+    Vector2D zero()
     {
         _x = 0;
         _y = 0;
-        return this;
+        return *this;
     }
 
     bool isZero()
@@ -39,14 +39,14 @@ public:
 
     void setLength(float value)
     {
-        float a = angle;
+        float a = getAngle();
         _x = cos(a) * value;
         _y = sin(a) * value;
     }
 
     float getLength()
     {
-        return sqrt(lengthSQ);
+        return sqrt(getLengthSQ());
     }
 
     float getLengthSQ()
@@ -68,43 +68,43 @@ public:
 
     Vector2D normalize()
     {
-        if(length == 0)
+        if(getLength() == 0)
         {
             _x = 1;
-            return this;
+            return *this;
         }
         float len = getLength();
         _x /= len;
         _y /= len;
-        return this;
+        return *this;
     }
 
     Vector2D truncate(float max)
     {
-        length = min(max, length);
-        return this;
+        setLength(min(max, getLength()));
+        return *this;
     }
 
     Vector2D reverse()
     {
         _x = -_x;
         _y = -_y;
-        return this;
+        return *this;
     }
 
     bool isNormalized()
     {
-        return length == 1.0;
+        return getLength() == 1.0;
     }
 
     float dotProd(Vector2D v2)
     {
-        return _x * v2.x + _y * v2.y;
+        return (_x * v2._x) + (_y * v2._y);
     }
 
-    void crossProd(Vector2D v2)
+    float crossProd(Vector2D v2)
     {
-        return _x * v2.y - _y * v2.x;
+        return _x * v2._y - _y * v2._x;
     }
 
     float  angleBetween(Vector2D v1, Vector2D v2)
@@ -120,12 +120,13 @@ public:
 
     int sign(Vector2D v2)
     {
-        return perp.dotProd(v2) < 0 ? -1 : 1;
+        return getPerp().dotProd(v2) < 0 ? -1 : 1;
     }
 
     Vector2D getPerp()
     {
-        return new Vector2D(-y, x);
+        Vector2D* returnVector = new Vector2D(-_y, _x);
+        return *returnVector;
     }
 
     float dist(Vector2D v2)
@@ -135,34 +136,34 @@ public:
 
     float distSQ(Vector2D v2)
     {
-        float  dx = v2.x - x;
-        float  dy = v2.y - y;
+        float  dx = v2._x - _x;
+        float  dy = v2._y - _y;
         return dx * dx + dy * dy;
     }
 
     Vector2D add(Vector2D v2)
     {
-        return new Vector2D(_x + v2.x, _y + v2.y);
+        return Vector2D(_x + v2._x, _y + v2._y);
     }
 
     Vector2D subtract(Vector2D v2)
     {
-        return new Vector2D(_x - v2.x, _y - v2.y);
+        return Vector2D(_x - v2._x, _y - v2._y);
     }
 
     Vector2D multiply(float value)
     {
-        return new Vector2D(_x * value, _y * value);
+        return Vector2D(_x * value, _y * value);
     }
 
     Vector2D divide(float value)
     {
-        return new Vector2D(_x / value, _y / value);
+        return Vector2D(_x / value, _y / value);
     }
 
     bool equals(Vector2D v2)
     {
-        return _x == v2.x && _y == v2.y;
+        return _x == v2._x && _y == v2._y;
     }
 
     void x(float value)
@@ -179,11 +180,12 @@ public:
     {
         _y = value;
     }
+
     float y()
     {
         return _y;
     }
 
-}
+};
 
 #endif // VECTOR2D_H
