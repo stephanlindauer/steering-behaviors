@@ -14,6 +14,7 @@ SOURCES += main.cpp\
         mainwindow.cpp
 
 HEADERS  += mainwindow.h \
-    bird.h
+    bird.h \
+    vector2d.h
 
 FORMS    += mainwindow.ui
