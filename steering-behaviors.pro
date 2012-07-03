@@ -16,6 +16,8 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     bird.h \
     vector2d.h \
-    mapdrawer.h
+    mapdrawer.h \
+    birddrawer.h \
+    drawer.h
 
 FORMS    += mainwindow.ui
