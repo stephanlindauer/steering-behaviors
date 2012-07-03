@@ -3,8 +3,7 @@
 
 #include "vector2d.h"
 
-class Bird
-{
+class Bird : public Object {
 public:
     Vector2D m_position;
     Vector2D m_velocity;

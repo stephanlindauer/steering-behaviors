@@ -18,6 +18,10 @@ HEADERS  += mainwindow.h \
     mapdrawer.h \
     birddrawer.h \
     drawer.h \
-    obstacledrawer.h
+    map.h \
+    object.h \
+    obstacle.h \
+    obstacledrawer.h 
+    
 
 FORMS    += mainwindow.ui
