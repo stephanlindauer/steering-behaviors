@@ -15,12 +15,37 @@ class MainWindow : public QMainWindow
     Q_OBJECT
     
 public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+    explicit MainWindow(QWidget *parent = 0) :
+        QMainWindow(parent),
+        ui(new Ui::MainWindow),
+        timer(new QTimer(this))
+    {
+        ui->setupUi(this);
+        scene = new QGraphicsScene(this);
+        ui->graphicsView->setScene(scene);
+
+        for (unsigned int i = 0; i < 5; i++) {
+            Bird b;
+            birds.append(b);
+        }
+
+        connect(timer, SIGNAL(timeout()), this, SLOT(update()));
+        timer->start(1000);
+
+    }
+
+    ~MainWindow() {
+        timer->stop();
+        disconnect(timer, SIGNAL(timeout()));
+        delete timer;
+        delete ui;
+    }
 
 public slots:
 
-    void update(void);
+    void update(void) {
+
+    }
     
 private:
     Ui::MainWindow * ui;
