@@ -10,8 +10,7 @@ TARGET = steering-behaviors
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp
+SOURCES += main.cpp
 
 HEADERS  += mainwindow.h \
     bird.h \
