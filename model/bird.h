@@ -3,17 +3,17 @@
 
 #include <QVector>
 
-#include "vector2d.h"
-#include "object.h"
+#include "obstacle.h"
 #include "sector.h"
 
 class Bird : public Object {
 public:
-    void process (const Sector sector);
-    Vector2D m_velocity;
-};
+    typedef QVector<Bird> BirdVector;
 
-typedef QVector<Bird> BirdVector;
-typedef BirdVector::iterator BirdPointer;
+    // jeder Vogel soll für sich selbst entscheiden können, wohin er fliegt
+    // dazu benötigt er einen Sektor, dessen mittelpunkt er selbst ist
+    // in diesem Sektor sind andere Vögel und Hindernisse
+    void process ();
+};
 
 #endif // BIRD_H

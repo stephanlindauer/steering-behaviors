@@ -4,11 +4,11 @@
 #include <QMainWindow>
 #include <QtGui>
 #include <stdio.h>
-#include <bird.h>
+#include <model/bird.h>
 
-namespace Ui {
+/*namespace Ui {
 class MainWindow;
-}
+}*/
 
 class MainWindow : public QMainWindow
 {
@@ -17,12 +17,12 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0) :
         QMainWindow(parent),
-        ui(new Ui::MainWindow),
+        //ui(new Ui::MainWindow),
         timer(new QTimer(this))
     {
-        ui->setupUi(this);
+        //ui->setupUi(this);
         scene = new QGraphicsScene(this);
-        ui->graphicsView->setScene(scene);
+        //ui->graphicsView->setScene(scene);
 
         for (unsigned int i = 0; i < 5; i++) {
             Bird b;
@@ -38,7 +38,7 @@ public:
         timer->stop();
         disconnect(timer, SIGNAL(timeout()));
         delete timer;
-        delete ui;
+        //delete ui;
     }
 
 public slots:
@@ -48,7 +48,7 @@ public slots:
     }
     
 private:
-    Ui::MainWindow * ui;
+    //Ui::MainWindow * ui;
     QGraphicsScene * scene;
     QTimer * timer;
     QVector<Bird> birds;
