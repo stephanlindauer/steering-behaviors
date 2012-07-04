@@ -13,7 +13,6 @@ TEMPLATE = app
 SOURCES += main.cpp
 
 HEADERS  += mainwindow.h \
-    bird.h \
     vector2d.h \
     mapdrawer.h \
     birddrawer.h \
@@ -22,6 +21,16 @@ HEADERS  += mainwindow.h \
     object.h \
     obstacle.h \
     obstacledrawer.h \
-    sector.h
+    sector.h \
+    model/vector2d.h \
+    model/sector.h \
+    model/obstacle.h \
+    model/object.h \
+    model/map.h \
+    model/bird.h \
+    view/obstacledrawer.h \
+    view/mapdrawer.h \
+    view/drawer.h \
+    view/birddrawer.h
 
 FORMS    += mainwindow.ui
