@@ -6,44 +6,37 @@
 
 using namespace std;
 
-class Vector2D
-{
-
-private :
-
-    float _x;
-    float _y;
-
+class Vector2D {
 public:
 
-    Vector2D(): _x(0.f), _y(0.f) {}
+    Vector2D(): m_x(0.f), m_y(0.f) {}
 
     Vector2D(float x, float y) :
-        _x(x),
-        _y(y) {}
+        m_x(x),
+        m_y(y) {}
 
     Vector2D clone()
     {
-        return Vector2D(_x, _y);
+        return Vector2D(m_x, m_y);
     }
 
     Vector2D zero()
     {
-        _x = 0;
-        _y = 0;
+        m_x = 0;
+        m_y = 0;
         return *this;
     }
 
     bool isZero()
     {
-        return (_x == 0) && (_y == 0);
+        return (m_x == 0) && (m_y == 0);
     }
 
     void setLength(float value)
     {
         float a = getAngle();
-        _x = cos(a) * value;
-        _y = sin(a) * value;
+        m_x = cos(a) * value;
+        m_y = sin(a) * value;
     }
 
     float getLength()
@@ -53,31 +46,31 @@ public:
 
     float getLengthSQ()
     {
-        return (_x * _x) + (_y * _y);
+        return (m_x * m_x) + (m_y * m_y);
     }
 
     void setAngle(float value)
     {
         float len = getLength();
-        _x = cos(value) * len;
-        _y = sin(value) * len;
+        m_x = cos(value) * len;
+        m_y = sin(value) * len;
     }
 
     float getAngle()
     {
-        return atan2(_y, _x);
+        return atan2(m_y, m_x);
     }
 
     Vector2D normalize()
     {
         if(getLength() == 0)
         {
-            _x = 1;
+            m_x = 1;
             return *this;
         }
         float len = getLength();
-        _x /= len;
-        _y /= len;
+        m_x /= len;
+        m_y /= len;
         return *this;
     }
 
@@ -89,8 +82,8 @@ public:
 
     Vector2D reverse()
     {
-        _x = -_x;
-        _y = -_y;
+        m_x = -m_x;
+        m_y = -m_y;
         return *this;
     }
 
@@ -101,12 +94,12 @@ public:
 
     float dotProd(Vector2D v2)
     {
-        return (_x * v2._x) + (_y * v2._y);
+        return (m_x * v2.m_x) + (m_y * v2.m_y);
     }
 
     float crossProd(Vector2D v2)
     {
-        return _x * v2._y - _y * v2._x;
+        return m_x * v2.m_y - m_y * v2.m_x;
     }
 
     float  angleBetween(Vector2D v1, Vector2D v2)
@@ -127,7 +120,7 @@ public:
 
     Vector2D getPerp()
     {
-        Vector2D* returnVector = new Vector2D(-_y, _x);
+        Vector2D* returnVector = new Vector2D(-m_y, m_x);
         return *returnVector;
     }
 
@@ -138,14 +131,14 @@ public:
 
     float distSQ(Vector2D v2)
     {
-        float  dx = v2._x - _x;
-        float  dy = v2._y - _y;
+        float  dx = v2.m_x - m_x;
+        float  dy = v2.m_y - m_y;
         return dx * dx + dy * dy;
     }
 
     Vector2D add(Vector2D v2)
     {
-        return Vector2D(_x + v2._x, _y + v2._y);
+        return Vector2D(m_x + v2.m_x, m_y + v2.m_y);
     }
 
     Vector2D & operator+(Vector2D & v2) {
@@ -155,43 +148,48 @@ public:
 
     Vector2D subtract(Vector2D v2)
     {
-        return Vector2D(_x - v2._x, _y - v2._y);
+        return Vector2D(m_x - v2.m_x, m_y - v2.m_y);
     }
 
     Vector2D multiply(float value)
     {
-        return Vector2D(_x * value, _y * value);
+        return Vector2D(m_x * value, m_y * value);
     }
 
     Vector2D divide(float value)
     {
-        return Vector2D(_x / value, _y / value);
+        return Vector2D(m_x / value, m_y / value);
     }
 
     bool equals(Vector2D v2)
     {
-        return _x == v2._x && _y == v2._y;
+        return m_x == v2.m_x && m_y == v2.m_y;
     }
 
     void x(float value)
     {
-        _x = value;
+        m_x = value;
     }
 
     float x() const
     {
-        return _x;
+        return m_x;
     }
 
     void y(float value)
     {
-        _y = value;
+        m_y = value;
     }
 
     float y() const
     {
-        return _y;
+        return m_y;
     }
+
+private:
+
+    float m_x;
+    float m_y;
 
 };
 

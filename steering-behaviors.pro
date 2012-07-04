@@ -21,6 +21,7 @@ HEADERS  += mainwindow.h \
     map.h \
     object.h \
     obstacle.h \
-    nullobject.h
+    obstacledrawer.h \
+    sector.h
 
 FORMS    += mainwindow.ui

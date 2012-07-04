@@ -3,6 +3,7 @@
 
 #include <QtGui>
 #include <birddrawer.h>
+#include <obstacledrawer.h>
 #include <map.h>
 
 class MapDrawer : public Drawer
@@ -16,7 +17,7 @@ public:
 
 
     void draw (const QGraphicsScene *scene){
-        for (int i = 0; i < birds.size(); i++) {
+        for (int i = 0; i < m_birds.size(); i++) {
             m_birds[i].draw(scene);
         }
         for (int j = 0; j < m_obstacles.size(); j++) {
