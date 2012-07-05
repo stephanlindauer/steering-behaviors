@@ -35,6 +35,10 @@ public:
         return m_obstacles;
     }
 
+    /*void step(void) {
+        for (int i = 0; i < m_birds.size(); i++)
+    }*/
+
 protected:
     BirdVector m_birds;
     ObstacleVector m_obstacles;

@@ -25,6 +25,7 @@ HEADERS  += mainwindow.h \
     view/mapdrawer.h \
     view/birddrawer.h \
     view/obstacledrawer.h \
-    view/util.h
+    view/qtutil.h \
+    model/vectorutil.h
 
 FORMS    += mainwindow.ui

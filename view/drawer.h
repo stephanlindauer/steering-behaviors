@@ -8,21 +8,19 @@ namespace steering_behaviors {
 
 class Drawer {
 public:
-    Drawer():m_drawn(false) {}
-
-    virtual void draw (QGraphicsScene * scene);
-
-    static const qreal x(const Vector2D vector) {
+    static qreal x(const Vector2D vector) {
         return (qreal) vector.x();
     }
 
-    static const qreal y(const Vector2D vector) {
+    static qreal y(const Vector2D vector) {
         return (qreal) vector.y();
     }
 
-protected:
+    Drawer():m_drawn(false) {}
 
-    const bool drawn(void) const {
+    virtual void draw (QGraphicsScene * scene) = 0;
+
+    bool hasBeenDrawn(void) const {
         return m_drawn;
     }
 
@@ -33,6 +31,9 @@ protected:
     void reset(void)  {
         m_drawn = false;
     }
+
+
+protected:
 
 private:
 

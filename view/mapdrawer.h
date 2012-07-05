@@ -25,10 +25,17 @@ public:
     void draw (QGraphicsScene * scene) {
         conditionalInsert();
 
-        // TODO:
-        // iterate over each m_map.birds(),
-        // find their drawer,
-        // let it draw it
+        // iterate over each bird/obstacle,find their drawer and let it draw
+
+        for (int i = 0; i < m_map.birds().size(); i++) {
+            Bird & bird = m_map.birds()[i];
+            m_birdDrawers[&bird]->draw(scene);
+        }
+
+        for (int i = 0; i < m_map.obstacles().size(); i++) {
+            Obstacle & obstacle = m_map.obstacles()[i];
+            m_obstacleDrawers[&obstacle]->draw(scene);
+        }
 
         conditionalRemove();
     }
@@ -42,6 +49,7 @@ private:
     QMap<Obstacle *, ObstacleDrawer *> m_obstacleDrawers;
 
     void conditionalInsert(void) {
+        // for each bird/obstacle test if there is already a drawer; if not add it
         for (int i = 0; i < m_map.birds().size(); i++) {
             Bird & bird = m_map.birds()[i];
             if (!m_birdDrawers.contains(&bird)) {
@@ -58,10 +66,40 @@ private:
     }
 
     void conditionalRemove(void) {
-        // TODO
-        // find each bird/obstacle that hasn't been drawn
-        // and remove it's appropriate drawer;
-        // afterwars reset each birds/obstacles drawers drawn-flag
+        // for each BirdDrawer/ObstacleDrawer
+        // test if it has that has been drawn:
+        // if it has been, reset the drawers drawn-flag;
+        // else remove it's appropriate drawer;
+
+        {
+            QList<Bird *> keys = m_birdDrawers.uniqueKeys();
+            for (int i = 0; i < keys.size(); i++) {
+                Bird * bird = keys[i];
+                BirdDrawer * birdDrawer = m_birdDrawers[bird];
+                if (birdDrawer->hasBeenDrawn()) {
+                    birdDrawer->reset();
+                    continue;
+                }
+
+                m_birdDrawers.remove(bird);
+                delete birdDrawer;
+            }
+        }
+
+        {
+            QList<Obstacle *> keys = m_obstacleDrawers.uniqueKeys();
+            for (int i = 0; i < keys.size(); i++) {
+                Obstacle * obstacle = keys[i];
+                ObstacleDrawer * obstacleDrawer = m_obstacleDrawers[obstacle];
+                if (obstacleDrawer->hasBeenDrawn()) {
+                    obstacleDrawer->reset();
+                    continue;
+                }
+
+                m_obstacleDrawers.remove(obstacle);
+                delete obstacleDrawer;
+            }
+        }
     }
 
 };

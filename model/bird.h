@@ -5,7 +5,7 @@
 
 #include "object.h"
 #include "vector2d.h"
-//#include "strategy.h"
+//#include "strategy.h" // TODO
 
 namespace steering_behaviors {
 
@@ -33,7 +33,7 @@ public:
 protected:
 
     Vector2D m_velocity;
-    // Strategy m_strategy
+    // Strategy m_strategy // TODO
 
 private:
 
