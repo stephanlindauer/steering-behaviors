@@ -38,8 +38,6 @@ public:
         const qreal x = Drawer::x(position);
         const qreal y = Drawer::y(position);
 
-        printf("%f %f\n", x, y);
-
         if (m_ellipse != NULL) {
             // re-use existing ellipse
             m_ellipse->setX(x);
@@ -50,7 +48,9 @@ public:
         // create new ellipse
         QPen pen(randomColor());
         QBrush brush(randomColor());
-        m_ellipse = scene->addEllipse(x, y, WIDTH, HEIGHT, pen, brush);
+        m_ellipse = scene->addEllipse(0, 0, WIDTH, HEIGHT, pen, brush);
+        m_ellipse->setX(x);
+        m_ellipse->setY(y);
     }
 
     const Bird & bird(void) const {

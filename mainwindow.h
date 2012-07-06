@@ -22,7 +22,9 @@ public:
 
 public slots:
 
-    void update(void);
+    void birdCountUpdate(const int newValue);
+    void birdDown(void);
+    void timerUpdate(void);
 
     
 private:

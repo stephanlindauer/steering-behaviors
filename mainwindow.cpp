@@ -33,10 +33,18 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
     steering_behaviors::ObstacleVector obstacles;
-    steering_behaviors::Obstacle u(Vector2D (0.f, 0.f), Vector2D(500.f, 0.f));
-    steering_behaviors::Obstacle l(Vector2D (0.f, 0.f), Vector2D(0.f, 500.f));
-    steering_behaviors::Obstacle r(Vector2D (500.f, 0.f), Vector2D(0.f, 500.f));
-    steering_behaviors::Obstacle d(Vector2D (0.f, 500.f), Vector2D(500.f, 0.f));
+    steering_behaviors::Obstacle u(Vector2D (0.f, 0.f),
+                                   Vector2D(500.f, 0.f));
+
+    steering_behaviors::Obstacle l(Vector2D (0.f, 0.f),
+                                   Vector2D(0.f, 500.f));
+
+    steering_behaviors::Obstacle r(Vector2D (500.f, 0.f),
+                                   Vector2D(0.f, 500.f));
+
+    steering_behaviors::Obstacle d(Vector2D (0.f, 500.f),
+                                   Vector2D(500.f, 0.f));
+
     obstacles.append(u);
     obstacles.append(l);
     obstacles.append(r);
@@ -48,8 +56,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_mapDrawer->draw(m_scene);
 
-    connect(m_timer, SIGNAL(timeout()), this, SLOT(update()));
-    m_timer->start(1000);
+    connect(m_timer, SIGNAL(timeout()), this, SLOT(timerUpdate()));
+    m_timer->start(60/1000); // 60 frames per second
 }
 
 MainWindow::~MainWindow()
@@ -65,7 +73,33 @@ MainWindow::~MainWindow()
     delete m_map;
 }
 
-void MainWindow::update(void) {
+void MainWindow::birdCountUpdate(const int newValue) {
+
+    // increase population
+    for (int i = m_map->birds().size(); i < newValue; i++) {
+        steering_behaviors::Bird bird(Vector2D((float) (rand() % 100),
+                                               (float) (rand() % 100)),
+                                      Vector2D((float) (rand() % 5),
+                                               (float) (rand() % 5)));
+        m_map->birds().append(bird);
+    }
+
+    // decrease population
+    for (int i = newValue; i < m_map->birds().size(); i++) {
+        m_map->birds().remove(i);
+    }
+
+}
+
+void MainWindow::birdDown(void) {
+    for (int i = 0; i < m_map->birds().size(); i++) {
+        steering_behaviors::Bird & bird = m_map->birds()[i];
+        Vector2D & position = bird.position();
+        position = position.add(Vector2D(0.f, 10.f));
+    }
+}
+
+void MainWindow::timerUpdate(void) {
 
     m_mapDrawer->draw(m_scene);
 
