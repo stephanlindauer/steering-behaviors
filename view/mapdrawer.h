@@ -40,6 +40,13 @@ public:
         conditionalRemove();
     }
 
+    BirdDrawer * birdDrawer(Bird * bird) {
+        if (m_birdDrawers.contains(bird))
+            return m_birdDrawers[bird];
+
+        return NULL;
+    }
+
 protected:
 
 private:

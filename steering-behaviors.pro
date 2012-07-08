@@ -18,7 +18,6 @@ HEADERS  += mainwindow.h \
     model/vector2d.h \
     model/bird.h \
     model/obstacle.h \
-    model/brain.h \
     model/map.h \
     model/area.h \
     view/drawer.h \
@@ -26,6 +25,7 @@ HEADERS  += mainwindow.h \
     view/birddrawer.h \
     view/obstacledrawer.h \
     view/qtutil.h \
-    model/vectorutil.h
+    model/vectorutil.h \
+    control/brain.h
 
 FORMS    += mainwindow.ui

@@ -11,6 +11,8 @@
 
 #include "model/vector2d.h"
 
+#include "control/brain.h"
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -25,10 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     steering_behaviors::BirdVector birds;
     for (int i = 0; i < 1; i++) {
-        steering_behaviors::Bird bird(Vector2D((float) (rand() % 10),
-                                               (float) (rand() % 10)),
-                                      Vector2D((float) (rand() % 5),
-                                               (float) (rand() % 5)));
+        steering_behaviors::Bird bird(Vector2D(0.f, 0.f));
         birds.append(bird);
     }
 
@@ -57,7 +56,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_mapDrawer->draw(m_scene);
 
     connect(m_timer, SIGNAL(timeout()), this, SLOT(timerUpdate()));
-    m_timer->start(60/1000); // 60 frames per second
+    m_timer->start((int) (1000.f/60.f)); // 60 frames per second
 }
 
 MainWindow::~MainWindow()
@@ -77,10 +76,8 @@ void MainWindow::birdCountUpdate(const int newValue) {
 
     // increase population
     for (int i = m_map->birds().size(); i < newValue; i++) {
-        steering_behaviors::Bird bird(Vector2D((float) (rand() % 100),
-                                               (float) (rand() % 100)),
-                                      Vector2D((float) (rand() % 5),
-                                               (float) (rand() % 5)));
+        steering_behaviors::Bird bird(Vector2D((float) (rand() % getSceneWidth()),
+                                               (float) (rand() % getSceneHeight())));
         m_map->birds().append(bird);
     }
 
@@ -91,16 +88,19 @@ void MainWindow::birdCountUpdate(const int newValue) {
 
 }
 
-void MainWindow::birdDown(void) {
-    for (int i = 0; i < m_map->birds().size(); i++) {
-        steering_behaviors::Bird & bird = m_map->birds()[i];
-        Vector2D & position = bird.position();
-        position = position.add(Vector2D(0.f, 10.f));
-    }
-}
-
 void MainWindow::timerUpdate(void) {
+
+    if (ui->runBox->isChecked())
+        steering_behaviors::Brain::process(m_scene, *m_map, *m_mapDrawer);
 
     m_mapDrawer->draw(m_scene);
 
+}
+
+int MainWindow::getSceneWidth(void) {
+    return (int) (m_scene->width() - steering_behaviors::BirdDrawer::WIDTH);
+}
+
+int MainWindow::getSceneHeight(void) {
+    return (int) (m_scene->height() - steering_behaviors::BirdDrawer::HEIGHT);
 }

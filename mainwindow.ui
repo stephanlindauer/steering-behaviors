@@ -44,9 +44,9 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="downButton">
+       <widget class="QCheckBox" name="runBox">
         <property name="text">
-         <string>runter</string>
+         <string>run</string>
         </property>
        </widget>
       </item>
@@ -84,22 +84,6 @@
     <hint type="destinationlabel">
      <x>568</x>
      <y>-22</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>downButton</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>birdDown()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>644</x>
-     <y>78</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>676</x>
-     <y>-12</y>
     </hint>
    </hints>
   </connection>

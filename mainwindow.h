@@ -23,8 +23,12 @@ public:
 public slots:
 
     void birdCountUpdate(const int newValue);
-    void birdDown(void);
     void timerUpdate(void);
+
+protected:
+
+    int getSceneWidth(void);
+    int getSceneHeight(void);
 
     
 private:

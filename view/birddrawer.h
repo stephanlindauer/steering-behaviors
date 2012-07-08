@@ -17,10 +17,11 @@ namespace steering_behaviors {
 
 class BirdDrawer : public Drawer {
 
+public:
+
     static const qreal WIDTH = 10;
     static const qreal HEIGHT = 10;
 
-public:
     explicit BirdDrawer(const Bird & bird):
         Drawer(),
         m_bird(bird),
@@ -55,6 +56,10 @@ public:
 
     const Bird & bird(void) const {
         return m_bird;
+    }
+
+    QGraphicsEllipseItem * item(void) const {
+        return m_ellipse;
     }
 
 protected:
