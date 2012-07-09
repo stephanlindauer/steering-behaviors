@@ -28,6 +28,8 @@ HEADERS  += mainwindow.h \
     model/vectorutil.h \
     control/brain.h \
     model/strategy.h \
-    model/strategies/flee.h
+    model/strategies/flee.h \
+    model/strategies/follow.h \
+    model/strategies/base.h
 
 FORMS    += mainwindow.ui

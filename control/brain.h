@@ -52,8 +52,6 @@ public:
                 }
             }
 
-            bird.limit();
-
             Vector2D v = velocity.divide(1000.f/60.f);
 
             position = position.add(v);

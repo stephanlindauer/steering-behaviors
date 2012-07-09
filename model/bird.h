@@ -29,10 +29,8 @@ public:
                    const Vector2D velocity = randVector()):
         Object(position),
         m_velocity(velocity),
-        m_strategies(StrategyVector()){}
-
-    void limit(void) {
-        m_velocity.truncate((float) MAX_SPEED);
+        m_strategies(StrategyVector()) {
+        m_velocity.normalize();
     }
 
     const Vector2D & velocity(void) const {
