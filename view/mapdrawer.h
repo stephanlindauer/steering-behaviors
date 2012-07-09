@@ -47,6 +47,28 @@ public:
         return NULL;
     }
 
+    ObstacleDrawer * obstacleDrawer(Obstacle * obstacle) {
+        if (m_obstacleDrawers.contains(obstacle))
+            return m_obstacleDrawers[obstacle];
+
+        return NULL;
+    }
+
+    Object * fromItem(QGraphicsItem * item) {
+        QList<Bird *> birdKeys = m_birdDrawers.keys();
+        for (int i = 0; i < birdKeys.size(); i++) {
+            if (m_birdDrawers[birdKeys[i]]->item() == item)
+                return (Object *) (&m_birdDrawers[birdKeys[i]]->bird());
+        }
+
+        QList<Obstacle *> obstacleKeys = m_obstacleDrawers.keys();
+        for (int i = 0; i < obstacleKeys.size(); i++) {
+            if (m_obstacleDrawers[obstacleKeys[i]]->item() == item)
+                return (Object *) (&m_obstacleDrawers[obstacleKeys[i]]->obstacle());
+        }
+        return NULL;
+    }
+
 protected:
 
 private:

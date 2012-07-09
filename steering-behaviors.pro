@@ -26,6 +26,8 @@ HEADERS  += mainwindow.h \
     view/obstacledrawer.h \
     view/qtutil.h \
     model/vectorutil.h \
-    control/brain.h
+    control/brain.h \
+    model/strategy.h \
+    model/strategies/flee.h
 
 FORMS    += mainwindow.ui

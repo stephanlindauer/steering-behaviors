@@ -12,11 +12,11 @@ public:
     explicit Object(const Vector2D position):
         m_position(position) {}
 
-    const Vector2D & position(void) const {
+    virtual const Vector2D & position(void) const {
         return m_position;
     }
 
-    Vector2D & position(void) {
+    virtual Vector2D & position(void) {
         return m_position;
     }
 

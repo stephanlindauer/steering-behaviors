@@ -38,6 +38,8 @@ private:
 
     steering_behaviors::Map * m_map;
     steering_behaviors::MapDrawer * m_mapDrawer;
+
+    void addBird(void);
 };
 
 #endif // MAINWINDOW_H

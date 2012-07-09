@@ -14,51 +14,17 @@ namespace steering_behaviors {
 
 class Brain {
 
-    static Vector2D rotate(const Vector2D vec) {
-        const int MIN = 15;
-        const int MAX = 180 - MIN;
-
-        int angle = rand() % MAX;
-
-        while (angle < MIN)
-            angle = rand() % MAX;
-
-        Vector2D result = vec;
-        result.setAngle(result.getAngle() + (float) angle / 360.f);
-        return result;
-    }
-
-    static bool boundary(QGraphicsScene * scene, QGraphicsItem * item) {
-        if (scene == NULL)
-            return false;
-
-        if (item == NULL)
-            return false;
-
-        if (item->x() < 0)
-            return false;
-
-        if (item->x() > scene->width())
-            return false;
-
-        if (item->y() < 0)
-            return false;
-
-        if (item->y() > scene->height())
-            return false;
-
-        return true;
-    }
-
 public:
 
-    static void process (QGraphicsScene * scene, Map & map, MapDrawer & mapDrawer) {
+    static void process (bool sightbox, QGraphicsScene * scene, Map & map, MapDrawer & mapDrawer) {
+        clearBoxes(scene);
+
         for (int i = 0; i < map.birds().size(); i++) {
             Bird & bird = map.birds()[i];
             Vector2D & position = bird.position();
             Vector2D & velocity = bird.velocity();
 
-            BirdDrawer * birdDrawer = mapDrawer.birdDrawer(&bird);
+            const BirdDrawer * birdDrawer = mapDrawer.birdDrawer(&bird);
             if (birdDrawer == NULL)
                 continue;
 
@@ -66,15 +32,31 @@ public:
             if (item == NULL)
                 continue;
 
-            QList<QGraphicsItem *> collidingItems = scene->collidingItems(item);
+            // visible range
+            QRectF rectangle = item->boundingRect();
+            expand(rectangle);
+            rectangle.moveCenter(QPointF(item->x() + BirdDrawer::WIDTH / 2, item->y() + BirdDrawer::HEIGHT / 2));
+            if (sightbox)
+                rectangles.append(scene->addRect(rectangle));
 
-            if (collidingItems.size() > 0 || !boundary(scene, item)) {
-                velocity = rotate(velocity);
+            // items in visible range of the current bird
+            QList<QGraphicsItem *> items = scene->items(rectangle, Qt::ContainsItemBoundingRect, Qt::AscendingOrder);
+            for (int j = 0; j < items.size(); j++) {
+                QGraphicsItem * viewedItem = items[j];
+                if (item == viewedItem) // looking at us
+                    continue;
+
+                for (int k = 0; k < bird.strategies().size(); k++) {
+                    Strategy * strategy = bird.strategies()[k];
+                    strategy->apply(position, velocity, mapDrawer.fromItem(viewedItem));
+                }
             }
 
-            Vector2D vel = velocity.divide(1000.f/60.f);
+            bird.limit();
 
-            position = position + vel;
+            Vector2D v = velocity.divide(1000.f/60.f);
+
+            position = position.add(v);
         }
     }
 
@@ -82,7 +64,22 @@ protected:
 
 private:
 
+    static void expand(QRectF & rectangle) {
+        rectangle.adjust(-20, -20, 20, 20);
+    }
+
+    static void clearBoxes(QGraphicsScene * scene) {
+        for (int i = 0; i < rectangles.size(); i++)
+            scene->removeItem(rectangles[i]);
+
+        rectangles.clear();
+    }
+
+    static QList<QGraphicsRectItem *> rectangles;
+
 };
+
+QList<QGraphicsRectItem *> Brain::rectangles;
 
 }
 

@@ -34,13 +34,17 @@ public:
         }
 
         // create new recangle
-        QPen pen(Qt::black);
-        QBrush brush(Qt::white);
+        QPen pen(Qt::green);
+        QBrush brush(Qt::black);
         m_rectangle = scene->addRect(Drawer::x(position), Drawer::y(position), Drawer::x(dimension), Drawer::y(dimension), pen, brush);
     }
 
     const Obstacle & obstacle(void) const {
         return m_obstacle;
+    }
+
+    QGraphicsRectItem * item(void) const {
+        return m_rectangle;
     }
 
 protected:

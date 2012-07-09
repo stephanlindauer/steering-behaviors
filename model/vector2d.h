@@ -11,25 +11,18 @@ public:
 
     Vector2D(): m_x(0.f), m_y(0.f) {}
 
-    Vector2D(float x, float y) :
+    Vector2D(float x, float y):
         m_x(x),
         m_y(y) {}
 
-    Vector2D clone()
-    {
-        return Vector2D(m_x, m_y);
+    void zero() {
+        m_x = 0.f;
+        m_y = 0.f;
     }
 
-    Vector2D zero()
+    bool isZero() const
     {
-        m_x = 0;
-        m_y = 0;
-        return *this;
-    }
-
-    bool isZero()
-    {
-        return (m_x == 0) && (m_y == 0);
+        return (m_x == 0.f) && (m_y == 0.f);
     }
 
     void setLength(float value)
@@ -39,12 +32,12 @@ public:
         m_y = sin(a) * value;
     }
 
-    float getLength()
+    float getLength() const
     {
         return sqrt(getLengthSQ());
     }
 
-    float getLengthSQ()
+    float getLengthSQ() const
     {
         return (m_x * m_x) + (m_y * m_y);
     }
@@ -56,112 +49,105 @@ public:
         m_y = sin(value) * len;
     }
 
-    float getAngle()
+    float getAngle() const
     {
         return atan2(m_y, m_x);
     }
 
-    Vector2D normalize()
+    void normalize()
     {
         if(getLength() == 0)
         {
             m_x = 1;
-            return *this;
         }
         float len = getLength();
         m_x /= len;
         m_y /= len;
-        return *this;
     }
 
-    Vector2D truncate(float max)
+    void truncate(float max)
     {
         setLength(min(max, getLength()));
-        return *this;
     }
 
-    Vector2D reverse()
+    void reverse()
     {
         m_x = -m_x;
         m_y = -m_y;
-        return *this;
     }
 
-    bool isNormalized()
+    bool isNormalized() const
     {
         return getLength() == 1.0;
     }
 
-    float dotProd(Vector2D v2)
+    float dotProd(const Vector2D v2) const
     {
         return (m_x * v2.m_x) + (m_y * v2.m_y);
     }
 
-    float crossProd(Vector2D v2)
+    float crossProd(const Vector2D v2) const
     {
         return m_x * v2.m_y - m_y * v2.m_x;
     }
 
-    float  angleBetween(Vector2D v1, Vector2D v2)
+    static float angleBetween(const Vector2D v1, const Vector2D v2)
     {
-        if(!v1.isNormalized()) {
-            v1 = v1.clone().normalize();
-        }
-        if(!v2.isNormalized()){
-            v2 = v2.clone().normalize();
-        }
-        return acos(v1.dotProd(v2));
+        Vector2D x1 = v1;
+        if(!x1.isNormalized())
+            x1.normalize();
+
+        Vector2D x2 = v2;
+        if(!x2.isNormalized())
+            x2.normalize();
+
+        return acos(x1.dotProd(x2));
     }
 
-    int sign(Vector2D v2)
+    int sign(const Vector2D v2) const
     {
         return getPerp().dotProd(v2) < 0 ? -1 : 1;
     }
 
-    Vector2D getPerp()
+    const Vector2D getPerp(void) const
     {
-        Vector2D* returnVector = new Vector2D(-m_y, m_x);
-        return *returnVector;
+        Vector2D returnVector = Vector2D(-m_y, m_x);
+        return returnVector;
     }
 
-    float dist(Vector2D v2)
+    float dist(const Vector2D v2) const
     {
         return sqrt(distSQ(v2));
     }
 
-    float distSQ(Vector2D v2)
+    float distSQ(const Vector2D v2) const
     {
         float  dx = v2.m_x - m_x;
         float  dy = v2.m_y - m_y;
         return dx * dx + dy * dy;
     }
 
-    Vector2D add(Vector2D v2)
+    const Vector2D add(const Vector2D v2) const
     {
         return Vector2D(m_x + v2.m_x, m_y + v2.m_y);
     }
 
-    Vector2D & operator+(Vector2D & v2) {
-        *this = this->add(v2);
-        return *this;
-    }
-
-    Vector2D subtract(Vector2D v2)
+    const Vector2D subtract(const Vector2D v2) const
     {
         return Vector2D(m_x - v2.m_x, m_y - v2.m_y);
     }
 
-    Vector2D multiply(float value)
+    const Vector2D multiply(float value) const
     {
         return Vector2D(m_x * value, m_y * value);
     }
 
-    Vector2D divide(float value)
+    const Vector2D divide(float value) const
     {
         return Vector2D(m_x / value, m_y / value);
     }
 
-    bool equals(Vector2D v2)
+    bool equals(const Vector2D v2) const
     {
         return m_x == v2.m_x && m_y == v2.m_y;
     }

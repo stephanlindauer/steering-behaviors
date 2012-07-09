@@ -37,6 +37,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QCheckBox" name="sightBoxes">
+        <property name="text">
+         <string>sightbox</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QCheckBox" name="randomDotOrgSourceCheckBox">
         <property name="text">
          <string>random.org</string>

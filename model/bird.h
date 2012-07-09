@@ -1,13 +1,11 @@
 #ifndef BIRD_H
 #define BIRD_H
 
-//#include "stdio.h"
-
 #include <QVector>
 
 #include "object.h"
 #include "vector2d.h"
-//#include "strategy.h" // TODO
+#include "strategy.h"
 
 namespace steering_behaviors {
 
@@ -15,7 +13,7 @@ class Bird : public Object {
 
     static const int MAX_SPEED = 15;
 
-    static float randSpeed(void) {
+    static float randf(void) {
         const int r1 = (rand() % MAX_SPEED) - MAX_SPEED;
         const int r2 = (rand() % MAX_SPEED) - MAX_SPEED;
         return (float) (r1 + 1) / (float) (r2 == 0 ? 1 : r2);
@@ -23,16 +21,18 @@ class Bird : public Object {
 
 public:
 
-    explicit Bird():
-        Object(Vector2D()),
-        m_velocity(Vector2D()) {}
+    static Vector2D randVector(void) {
+        return Vector2D(randf(), randf());
+    }
 
-    explicit Bird (const Vector2D position,
-                   const Vector2D velocity = Vector2D(randSpeed(),
-                                                      randSpeed())):
+    explicit Bird (const Vector2D position = randVector(),
+                   const Vector2D velocity = randVector()):
         Object(position),
-        m_velocity(velocity) {
-        //printf("v: (%2f|%2f)\n", m_velocity.x(), m_velocity.y());
+        m_velocity(velocity),
+        m_strategies(StrategyVector()){}
+
+    void limit(void) {
+        m_velocity.truncate((float) MAX_SPEED);
     }
 
     const Vector2D & velocity(void) const {
@@ -43,10 +43,18 @@ public:
         return m_velocity;
     }
 
+    void add(Strategy * strategy) {
+        m_strategies.append(strategy);
+    }
+
+    StrategyVector & strategies(void) {
+        return m_strategies;
+    }
+
 protected:
 
     Vector2D m_velocity;
-    // Strategy m_strategy; // TODO
+    StrategyVector m_strategies;
 
 private:
 
