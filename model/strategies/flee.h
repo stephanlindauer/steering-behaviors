@@ -22,8 +22,6 @@ protected:
             return;
 
         velocity.setAngle(velocity.getAngle() + 1.f);
-//        velocity = velocity.multiply(10.f);
-
     }
 
 };

@@ -11,12 +11,11 @@ namespace steering_behaviors {
 
 class Bird : public Object {
 
-    static const int MAX_SPEED = 50;
+    static const int MAX_SPEED = 25;
 
     static float randf(void) {
-        const int r1 = rand() % MAX_SPEED;
-        const int r2 = rand() % MAX_SPEED - MAX_SPEED / 2;
-        return (float) r1 / (float) (r2 == 0 ? 1 : r2);
+        const int r1 = rand() % MAX_SPEED - MAX_SPEED;
+        return (float) r1;
     }
 
 public:
