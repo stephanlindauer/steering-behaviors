@@ -94,9 +94,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>randomDotOrgSourceCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>setRandomSource(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>668</x>
+     <y>81</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>681</x>
+     <y>-8</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>birdCountUpdate(int)</slot>
   <slot>birdDown()</slot>
+  <slot>setRandomSource(bool)</slot>
  </slots>
 </ui>

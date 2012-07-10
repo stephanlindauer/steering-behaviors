@@ -11,7 +11,8 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    model/random.cpp
 
 HEADERS  += mainwindow.h \
     model/object.h \
@@ -31,6 +32,7 @@ HEADERS  += mainwindow.h \
     model/strategies/flee.h \
     model/strategies/follow.h \
     model/strategies/base.h \
+    model/random.h \
     model/strategies/avoid.h
 
 FORMS    += mainwindow.ui
