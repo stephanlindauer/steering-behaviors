@@ -102,10 +102,10 @@ void MainWindow::timerUpdate(void) {
 }
 
 void MainWindow::setRandomSource(const bool useRandomOrg) {
-    if (useRandomOrg)
+    /*if (useRandomOrg)
         steering_behaviors::Random::setRandomOrg();
     else
-        steering_behaviors::Random::setInternal();
+        steering_behaviors::Random::setInternal();*/
 }
 
 int MainWindow::getSceneWidth(void) {

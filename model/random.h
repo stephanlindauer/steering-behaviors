@@ -10,25 +10,25 @@
 
 namespace steering_behaviors {
 
-class Random : public QObject {
+class Random /* : public QObject*/ {
 
-    Q_OBJECT
+    /*Q_OBJECT
 
 public:
     Random():m_manager(NULL),m_useRandomOrg(false),m_store(QList<int>()) {
 
     }
-
+*/
 public:
 
     static int random(int limit) {
-        if (steering_behaviors::INSTANCE->m_useRandomOrg) {
+        /*if (steering_behaviors::INSTANCE->m_useRandomOrg) {
             //
-        }
+        }*/
 
         return rand() % limit;
     }
-
+/*
     static void setInternal(void) {
         steering_behaviors::INSTANCE->m_useRandomOrg = false;
     }
@@ -59,10 +59,10 @@ private:
     QNetworkAccessManager * m_manager;
     bool m_useRandomOrg;
     QList<int> m_store;
-
+*/
 };
 
-static Random * INSTANCE;
+/*static Random * INSTANCE;*/
 
 }
 
