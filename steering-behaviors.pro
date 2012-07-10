@@ -30,6 +30,7 @@ HEADERS  += mainwindow.h \
     model/strategy.h \
     model/strategies/flee.h \
     model/strategies/follow.h \
-    model/strategies/base.h
+    model/strategies/base.h \
+    model/strategies/avoid.h
 
 FORMS    += mainwindow.ui

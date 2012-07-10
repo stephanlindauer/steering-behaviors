@@ -115,3 +115,4 @@ void MainWindow::addBird(void) {
     bird.add(new steering_behaviors::Follow(99));
     m_map->birds().append(bird);
 }
+
