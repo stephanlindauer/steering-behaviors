@@ -1,7 +1,7 @@
 #ifndef STRATEGY_H
 #define STRATEGY_H
 
-#include <QVector>
+#include <QMap>
 #include "object.h"
 #include "vector2d.h"
 
@@ -9,10 +9,23 @@ namespace steering_behaviors {
 
 class Strategy {
 public:
-    virtual void apply(const Vector2D & position, Vector2D & velocity, const Object * object) = 0;
+
+    explicit Strategy(const int priority):
+        m_priority(priority) {}
+
+    virtual void apply(const Vector2D & position, Vector2D & velocity, const float speed, const Object * object) = 0;
+
+    int priority(void) const {
+        return m_priority;
+    }
+
+private:
+
+    const int m_priority;
+
 };
 
-typedef QVector<Strategy *> StrategyVector;
+typedef QMap<int, Strategy *> StrategyMap;
 
 }
 
