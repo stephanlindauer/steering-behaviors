@@ -21,7 +21,12 @@ protected:
             // distance becoming greater
             return;
 
-        velocity.setAngle(velocity.getAngle() + 1.f);
+        velocity.setAngle(velocity.getAngle() + 0.0174f   );
+//        velocity = velocity.multiply(10.f);
+
+
+
+
     }
 
 };
