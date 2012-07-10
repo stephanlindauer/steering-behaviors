@@ -1,3 +1,3 @@
 #include "model/random.h"
 
-bool steering_behaviors::Random::useRandomOrg = false;
+static steering_behaviors::Random * INSTANCE = new steering_behaviors::Random();
