@@ -24,6 +24,7 @@ public slots:
 
     void birdCountUpdate(const int newValue);
     void timerUpdate(void);
+    void setRandomSource(const bool useRandomOrg);
 
 protected:
 

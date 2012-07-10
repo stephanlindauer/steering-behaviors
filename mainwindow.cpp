@@ -7,6 +7,7 @@
 #include "model/strategies/flee.h"
 #include "model/strategies/follow.h"
 #include "model/vector2d.h"
+#include "model/random.h"
 
 #include "view/birddrawer.h"
 #include "view/mapdrawer.h"
@@ -100,6 +101,13 @@ void MainWindow::timerUpdate(void) {
 
 }
 
+void MainWindow::setRandomSource(const bool useRandomOrg) {
+    if (useRandomOrg)
+        steering_behaviors::Random::setRandomOrg();
+    else
+        steering_behaviors::Random::setInternal();
+}
+
 int MainWindow::getSceneWidth(void) {
     return (int) (m_scene->width() - steering_behaviors::BirdDrawer::WIDTH);
 }
@@ -109,8 +117,8 @@ int MainWindow::getSceneHeight(void) {
 }
 
 void MainWindow::addBird(void) {
-    steering_behaviors::Bird bird(Vector2D((float) (rand() % getSceneWidth()),
-                                           (float) (rand() % getSceneHeight())));
+    steering_behaviors::Bird bird(Vector2D((float) (steering_behaviors::Random::random(getSceneWidth())),
+                                           (float) (steering_behaviors::Random::random(getSceneHeight()))));
     bird.add(new steering_behaviors::Flee(10));
     bird.add(new steering_behaviors::Follow(99));
     m_map->birds().append(bird);

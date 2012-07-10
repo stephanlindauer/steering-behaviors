@@ -95,7 +95,7 @@ protected:
 private:
 
     static void expand(QRectF & rectangle) {
-        rectangle.adjust(-20, -20, 20, 20);
+        rectangle.adjust(-40, -40, 40, 40);
     }
 
     static void clearBoxes(QGraphicsScene * scene) {

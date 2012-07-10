@@ -3,10 +3,12 @@
 
 #include <QColor>
 
+#include "model/random.h"
+
 namespace steering_behaviors {
 
 inline QColor randomColor(void) {
-    return QColor(qrand()%256, qrand()%256, qrand()%256);
+    return QColor(Random::random(256), Random::random(256), Random::random(256));
 }
 
 }

@@ -6,6 +6,7 @@
 #include "object.h"
 #include "vector2d.h"
 #include "strategy.h"
+#include "random.h"
 
 namespace steering_behaviors {
 
@@ -14,7 +15,7 @@ class Bird : public Object {
     static const int MAX_SPEED = 25;
 
     static float randf(void) {
-        const int r1 = rand() % MAX_SPEED - MAX_SPEED;
+        const int r1 = Random::random(MAX_SPEED) - MAX_SPEED;
         return (float) r1;
     }
 
