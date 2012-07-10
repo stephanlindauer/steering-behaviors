@@ -5,6 +5,7 @@
 #include "model/map.h"
 #include "model/obstacle.h"
 #include "model/strategies/flee.h"
+#include "model/strategies/follow.h"
 #include "model/vector2d.h"
 
 #include "view/birddrawer.h"
@@ -48,6 +49,8 @@ MainWindow::MainWindow(QWidget *parent) :
                                           Vector2D(5.f, 5.f));
         obstacles.append(down);
     }
+
+    obstacles.append(steering_behaviors::Obstacle(Vector2D(245.f, 245.f), Vector2D(10.f, 10.f)));
 
     m_map = new steering_behaviors::Map(Vector2D(0.f, 0.f), Vector2D(100.f, 100.f), birds, obstacles);
 
@@ -108,6 +111,7 @@ int MainWindow::getSceneHeight(void) {
 void MainWindow::addBird(void) {
     steering_behaviors::Bird bird(Vector2D((float) (rand() % getSceneWidth()),
                                            (float) (rand() % getSceneHeight())));
-    bird.add(new steering_behaviors::Flee());
+    bird.add(new steering_behaviors::Flee(10));
+    bird.add(new steering_behaviors::Follow(99));
     m_map->birds().append(bird);
 }

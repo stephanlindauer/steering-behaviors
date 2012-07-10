@@ -1,6 +1,8 @@
 #ifndef BRAIN_H
 #define BRAIN_H
 
+#include <typeinfo>
+
 #include <QGraphicsItem>
 #include <QGraphicsScene>
 #include <QList>
@@ -41,20 +43,50 @@ public:
 
             // items in visible range of the current bird
             QList<QGraphicsItem *> items = scene->items(rectangle, Qt::ContainsItemBoundingRect, Qt::AscendingOrder);
+
+            // iterate to process birds
             for (int j = 0; j < items.size(); j++) {
                 QGraphicsItem * viewedItem = items[j];
                 if (item == viewedItem) // looking at us
                     continue;
 
-                for (int k = 0; k < bird.strategies().size(); k++) {
-                    Strategy * strategy = bird.strategies()[k];
-                    strategy->apply(position, velocity, mapDrawer.fromItem(viewedItem));
+                Object * object = mapDrawer.fromItem(viewedItem);
+                if (typeid(*object) != typeid(Bird))
+                    continue;
+
+                // available strategies
+                QMapIterator<int, Strategy *> iterator(bird.strategies());
+                while (iterator.hasNext()) {
+                    iterator.next();
+                    Strategy * strategy = iterator.value();
+
+                    velocity.normalize();
+                    strategy->apply(position, velocity, bird.speed(), object);
+                }
+
+
+                items.removeAt(j);
+            }
+
+            // iterate again to process the left obstacles
+            for (int j = 0; j < items.size(); j++) {
+                QGraphicsItem * viewedItem = items[j];
+                if (item == viewedItem) // looking at us
+                    continue;
+
+                // available strategies
+                QMapIterator<int, Strategy *> iterator(bird.strategies());
+                while (iterator.hasNext()) {
+                    iterator.next();
+                    Strategy * strategy = iterator.value();
+
+                    velocity.normalize();
+                    strategy->apply(position, velocity, bird.speed(), mapDrawer.fromItem(viewedItem));
                 }
             }
 
             Vector2D v = velocity.divide(1000.f/60.f);
-
-            position = position.add(v);
+            position = position.add(v.multiply(bird.speed()));
         }
     }
 

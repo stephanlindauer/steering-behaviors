@@ -11,12 +11,12 @@ namespace steering_behaviors {
 
 class Bird : public Object {
 
-    static const int MAX_SPEED = 15;
+    static const int MAX_SPEED = 50;
 
     static float randf(void) {
-        const int r1 = (rand() % MAX_SPEED) - MAX_SPEED;
-        const int r2 = (rand() % MAX_SPEED) - MAX_SPEED;
-        return (float) (r1 + 1) / (float) (r2 == 0 ? 1 : r2);
+        const int r1 = rand() % MAX_SPEED;
+        const int r2 = rand() % MAX_SPEED - MAX_SPEED / 2;
+        return (float) r1 / (float) (r2 == 0 ? 1 : r2);
     }
 
 public:
@@ -29,7 +29,9 @@ public:
                    const Vector2D velocity = randVector()):
         Object(position),
         m_velocity(velocity),
-        m_strategies(StrategyVector()) {
+        m_strategies(StrategyMap()),
+        m_speed(m_velocity.getLength()){
+        m_strategies.setInsertInOrder(true);
         m_velocity.normalize();
     }
 
@@ -42,17 +44,22 @@ public:
     }
 
     void add(Strategy * strategy) {
-        m_strategies.append(strategy);
+        m_strategies.insert(strategy->priority(), strategy);
     }
 
-    StrategyVector & strategies(void) {
+    StrategyMap & strategies(void) {
         return m_strategies;
+    }
+
+    float speed(void) const {
+        return m_speed;
     }
 
 protected:
 
     Vector2D m_velocity;
-    StrategyVector m_strategies;
+    StrategyMap m_strategies;
+    float m_speed;
 
 private:
 

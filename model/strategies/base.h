@@ -13,19 +13,22 @@ namespace steering_behaviors {
 class Base : public Strategy {
 
 public:
-    void apply(const Vector2D & position, Vector2D & velocity, const Object * object) {
+    explicit Base(const int priority):
+        Strategy(priority) {}
+
+    void apply(const Vector2D & position, Vector2D & velocity, const float speed, const Object * object) {
         if (typeid(*object) == typeid(Bird))
-            applyBird(position, velocity, (Bird *) object);
+            applyBird(position, velocity, speed, (Bird *) object);
 
         if (typeid(*object) == typeid(Obstacle))
-            applyObstacle(position, velocity, (Obstacle *) object);
+            applyObstacle(position, velocity, speed, (Obstacle *) object);
     }
 
 protected:
 
-    virtual void applyBird(const Vector2D & position, Vector2D & velocity, const Bird * bird) { }
+    virtual void applyBird(const Vector2D & position, Vector2D & velocity, const float speed, const Bird * bird) { }
 
-    virtual void applyObstacle(const Vector2D & position, Vector2D & velocity, const Obstacle * obstacle) { }
+    virtual void applyObstacle(const Vector2D & position, Vector2D & velocity, const float speed, const Obstacle * obstacle) { }
 
 };
 
